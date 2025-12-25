@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Ponte's Casino</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+    <!-- VIEWPORT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <!-- OMINO -->
+            <div class="monopoly-man reveal-hero"></div>
+
+            <!-- TITOLO -->
+            <h1 class="reveal-hero">Ponte's Casino</h1>
+
+            <!-- PLAY (ULTIMO) -->
+            <a class="play-button reveal-play" href="#">
+                Play
+            </a>
+
+        </section>
+
+        <!-- INFO CREATOR -->
+        <section class="info-creator reveal-box">
+
+            <h2>Information About the Creator</h2>
+
+            <div class="links-grid">
+
+                <!-- SINISTRA -->
+                <a class="link instagram reveal-link"
+                   href="https://instagram.com/lucapontellini_"
+                   target="_blank">
+                    First Instagram account
+                </a>
+
+                <a class="link instagram reveal-link"
+                   href="https://instagram.com/plastici.f3rroviari"
+                   target="_blank">
+                    Second Instagram account
+                </a>
+
+                <!-- DESTRA -->
+                <a class="link youtube reveal-link"
+                   href="https://youtube.com/@plastici.ferroviari"
+                   target="_blank">
+                    YouTube Channel
+                </a>
+
+                <a class="link github reveal-link"
+                   href="https://github.com/LucaPontellini"
+                   target="_blank">
+                    GitHub Profile
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+</body>
+</html>
