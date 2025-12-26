@@ -43,44 +43,113 @@ La struttura del progetto segue il modello modulare visto in classe, basato su *
 Christmas-Project-v2.0-Full-Refresh/
 │
 ├── app/
-│ ├── init.py # create_app()
-│ │
-│ ├── main/
-│ │ ├── init.py
-│ │ └── routes.py # homepage
-│ │
-│ ├── templates/
-│ │ └── main/
-│ │   └── index.html
-│ │
-│ └── static/
+│   ├── __init__.py              # Application Factory: create_app()
+│   │
+│   ├── main/
+│   │   ├── __init__.py
+│   │   └── routes.py            # / → landing page (index)
+│   │
+│   ├── casino/
+│   │   ├── __init__.py
+│   │   └── routes.py            # /casino → lobby interna del casino
+│   │
+│   ├── account/ # da realizzare
+│   │   ├── __init__.py # da realizzare
+│   │   └── routes.py            # login / register / profile (da realizzare)
+│   │
+│   └── cashier/ # da realizzare
+│       ├── __init__.py # da realizzare
+│       └── routes.py            # dashboard cassiere (da realizzare)
+│
+├── templates/
+│   ├── main/
+│   │   └── index.html           # landing – “entra nel casino”
+│   │
+│   ├── casino/
+│   │   ├── lobby.html           # HOME INTERNA del casino
+│   │   └── partials/
+│   │       └── game_card.html   # singola card gioco (riutilizzabile)
+│   │
+│   ├── account/ # da realizzare
+│   │   ├── login.html # da realizzare
+│   │   ├── register.html # da realizzare
+│   │   └── profile.html # da realizzare
+│   │
+│   └── cashier/ # da realizzare
+│       └── dashboard.html # da realizzare
+│
+├── static/
 │   ├── css/
-│   │ └── index.css
+│   │   ├── index.css            # stile landing
+│   │   └── casino.css           # stile lobby casino
 │   │
 │   ├── js/
-│   │ └── index.js
+│   │   ├── index.js             # animazioni + audio landing
+│   │   └── music.js
 │   │
 │   ├── images/
-│   │ ├── casino_photos.jpg
-│   │ ├── monopoly_man.png
-│   │ ├── instagram.jpeg
-│   │ ├── youtube.jpeg
-│   │ ├── github.jpeg
-│   │ └── favicon.ico
+│   │   ├── casino_photos.jpg
+│   │   ├── monopoly_man.png
+│   │   ├── instagram.jpeg
+│   │   ├── youtube.jpeg
+│   │   ├── github.jpeg
+│   │   ├── favicon.ico
+│   │   ├── SPID.png
+│   │   ├── user_icon.png
+│   │   │
+│   │   ├── games/
+│   │   │   ├── blackjack.jpg
+│   │   │   ├── caribbean_stud_poker.jpg
+│   │   │   ├── poker_texas_holdem.jpg
+│   │   │   ├── three_card_poker.jpg
+│   │   │   ├── pai_gow_poker.jpg
+│   │   │   ├── let_it_ride.jpg
+│   │   │   ├── red_dog.jpg
+│   │   │   ├── war.jpg
+│   │   │   │
+│   │   │   ├── baccarat.jpg
+│   │   │   ├── punto_banco.jpg
+│   │   │   ├── mini_baccarat.jpg
+│   │   │   │
+│   │   │   ├── craps.jpg
+│   │   │   ├── sic_bo.png
+│   │   │   │
+│   │   │   ├── american_roulette.jpg
+│   │   │   ├── french_roulette.jpg
+│   │   │   ├── european_roulette.jpg
+│   │   │   │
+│   │   │   ├── video_slot.jpg
+│   │   │   ├── progressive_slot.jpg
+│   │   │   ├── classic_slot.jpg
+│   │   │   │
+│   │   │   ├── video_poker.jpg
+│   │   │   ├── jacks_or_better.jpg
+│   │   │   ├── deuces_wild.jpg
+│   │   │   ├── joker_poker.jpg
+│   │   │   │
+│   │   │   ├── keno.jpg
+│   │   │   ├── big_six_wheel.png
+│   │   │   ├── dream_catcher.jpg
+│   │   │   │
+│   │   │   ├── virtual_sports.jpg
+│   │   │   ├── fantasy_sports.jpg
+│   │   │   ├── e_sports.jpg
+│   │   │   ├── horse_racing.jpg
+│   │   │   └── greyhound_racing.jpg
+│   │   │   
+│   │   └── cashier.webp
 │   │
 │   └── music/
-│     └── Invisible_Cities.mp3
+│       ├── Invisible_Cities.mp3
+│       └── Jazzy_Smile.mp3
 │
-├── run.py
 │
-├── .gitignore
-│
-├── LICENSE
-│
+├── run.py                       # entry point (avvio app Flask)
 ├── requirements.txt
-│
 ├── README.md
-└── PROJECT_GUIDE.md
+├── PROJECT_GUIDE.md
+├── LICENSE
+└── .gitignore
 ```
 
 ---
@@ -109,6 +178,7 @@ La logica dell’applicazione è suddivisa in **Blueprint** per evitare un’app
 
 Attualmente è presente:
 - `main` → gestione della homepage
+- `casino` → gestione della lobby principale e navigazione interna
 
 In futuro verranno aggiunti Blueprint dedicati a:
 - autenticazione (`auth`)
@@ -144,6 +214,30 @@ Questa organizzazione segue le best practice Flask e migliora la leggibilità e 
 
 ---
 
+## 🎨 UI / UX & Responsive Design
+
+Una parte centrale del progetto riguarda la **cura dell’esperienza utente (UX)** e dell’interfaccia grafica (UI).
+
+La lobby del casino è stata progettata con particolare attenzione a:
+
+- gerarchia visiva chiara
+- call-to-action evidenti (Welcome Bonus, Play, Activate)
+- coerenza cromatica (nero/oro stile casino)
+- animazioni leggere e progressive
+
+### 📱 Responsive Design
+
+L’interfaccia è **completamente responsive**, con adattamenti specifici per dispositivi mobili:
+
+- layout flessibile basato su Flexbox e Grid
+- ridimensionamento di card, testi e pulsanti su smartphone
+- gestione dedicata della sezione *Welcome Bonus* su mobile
+- pulsanti full-width e spaziature maggiorate per touch
+
+Le regole responsive sono gestite tramite **media queries** all’interno di `casino.css`, mantenendo separata la logica desktop da quella mobile.
+
+---
+
 ## 📈 Evoluzione futura del progetto
 
 Il progetto è progettato per crescere secondo i livelli di complessità richiesti.
@@ -175,6 +269,7 @@ Il progetto non è pensato come un semplice esercizio, ma come una **base applic
 - buone pratiche di sviluppo
 - architettura modulare
 - codice leggibile e manutenibile
+- attenzione alla resa grafica e all’usabilità su dispositivi reali
 
 Ogni funzionalità verrà aggiunta in modo incrementale, mantenendo la coerenza strutturale dell’applicazione.
 

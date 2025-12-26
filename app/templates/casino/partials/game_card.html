@@ -1,0 +1,13 @@
+<div class="game-card">
+    <div class="game-image">
+        <img src="{{ url_for('static', filename=image) }}" alt="{{ title }}">
+    </div>
+
+    <p class="game-title">{{ title }}</p>
+
+    {% if action_label %}
+        <button class="play-btn">{{ action_label }}</button>
+    {% else %}
+        <button class="play-btn">Play</button>
+    {% endif %}
+</div>

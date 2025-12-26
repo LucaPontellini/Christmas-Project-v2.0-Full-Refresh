@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Casino Lobby</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casino.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="casino-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>Ponte's Casino</h2>
+
+        <img src="{{ url_for('static', filename='images/user_icon.png') }}"
+             alt="User"
+             class="user-avatar">
+
+        <div class="user-actions">
+            <button class="btn register">Sign up</button>
+            <button class="btn login">Login</button>
+            <button class="btn logout">Logout</button>
+        </div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#special-games">Live Casino</a></li>
+            <li><a href="#slots">Slot</a></li>
+            <li><a href="#roulette">Jackpot</a></li>
+            <li><a href="#card-games">Table Games</a></li>
+            <li><a href="#cashier">Cashier</a></li>
+        </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="casino-main" id="home">
+
+        <!-- HERO -->
+        <section class="casino-hero bonus-hero">
+        
+            <div class="bonus-header">
+                <h1>Welcome Bonus</h1>
+                <p>Sign up and start playing</p>
+            </div>
+        
+            <div class="bonus-options">
+            
+                <!-- SPID BONUS -->
+                <div class="bonus-option fast">
+                    <div class="bonus-left">
+                        <div class="bonus-image">
+                            <img src="{{ url_for('static', filename='images/SPID.png') }}" alt="SPID">
+                        </div>
+                    
+                        <div class="bonus-text">
+                            <small>Quick registration</small>
+                            <strong>€50 BONUS</strong>
+                        </div>
+                    
+                        <button>Activate</button>
+                    </div>
+                </div>
+            
+                <!-- CLASSIC BONUS -->
+                <div class="bonus-option">
+                    <div class="bonus-left">
+                        <div class="bonus-image">
+                            <img src="{{ url_for('static', filename='images/classica_registrazione.png') }}" alt="Classic">
+                        </div>
+                    
+                        <div class="bonus-text">
+                            <small>Classic registration</small>
+                            <strong>€20 BONUS</strong>
+                        </div>
+                    
+                        <button>Activate</button>
+                    </div>
+                </div>
+            
+            </div>
+        
+        </section>
+
+        <!-- CARD GAMES -->
+        <section class="casino-section" id="card-games">
+            <h2>🃏 Card Games</h2>
+            <div class="game-grid">
+
+                {% set title = "Blackjack" %}
+                {% set image = "images/games/blackjack.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Caribbean Stud Poker" %}
+                {% set image = "images/games/caribbean_stud_poker.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Poker Texas Hold'em" %}
+                {% set image = "images/games/poker_texas_holdem.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Three Card Poker" %}
+                {% set image = "images/games/three_card_poker.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Pai Gow Poker" %}
+                {% set image = "images/games/pai_gow_poker.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Baccarat" %}
+                {% set image = "images/games/baccarat.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Mini Baccarat" %}
+                {% set image = "images/games/mini_baccarat.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Jacks or Better" %}
+                {% set image = "images/games/jacks_or_better.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Deuces Wild" %}
+                {% set image = "images/games/deuces_wild.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Joker Poker" %}
+                {% set image = "images/games/joker_poker.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+            </div>
+        </section>
+
+        <!-- DICE & TABLE -->
+        <section class="casino-section" id="dice-table">
+            <h2>🎲 Dice & Table</h2>
+            <div class="game-grid">
+
+                {% set title = "Craps" %}
+                {% set image = "images/games/crabs.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Sic Bo" %}
+                {% set image = "images/games/sic_bo.png" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Punto Banco" %}
+                {% set image = "images/games/punto_banco.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+            </div>
+        </section>
+
+        <!-- ROULETTE -->
+        <section class="casino-section" id="roulette">
+            <h2>🎡 Roulette</h2>
+            <div class="game-grid">
+
+                {% set title = "Roulette" %}
+                {% set image = "images/games/roulette.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "American Roulette" %}
+                {% set image = "images/games/american_roulette.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "French Roulette" %}
+                {% set image = "images/games/french_roulette.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+            </div>
+        </section>
+
+        <!-- SLOTS -->
+        <section class="casino-section" id="slots">
+            <h2>🎰 Slots</h2>
+            <div class="game-grid">
+
+                {% set title = "Video Slot" %}
+                {% set image = "images/games/video_slot.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Progressive Slot" %}
+                {% set image = "images/games/progressive_slot.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+            </div>
+        </section>
+
+        <!-- SPECIAL / LIVE -->
+        <section class="casino-section" id="special-games">
+            <h2>⭐ Special Games</h2>
+            <div class="game-grid">
+
+                {% set title = "Dream Catcher" %}
+                {% set image = "images/games/dream_catcher.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Red Dog" %}
+                {% set image = "images/games/red_dog.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Big Six Wheel" %}
+                {% set image = "images/games/big_six_wheel.png" %}
+                {% include "casino/partials/game_card.html" %}
+
+            </div>
+        </section>
+
+        <!-- SPORTS & BETTING -->
+        <section class="casino-section" id="sports">
+            <h2>🏇 Sports & Betting</h2>
+            <div class="game-grid">
+
+                {% set title = "Virtual Sports" %}
+                {% set image = "images/games/virtual_sports.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Fantasy Sports" %}
+                {% set image = "images/games/fantasy_sports.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "eSports" %}
+                {% set image = "images/games/e_sports.png" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Greyhound Racing" %}
+                {% set image = "images/games/greyhound_racing.jpg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "Horse Racing" %}
+                {% set image = "images/games/horse_racing.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+                {% set title = "War" %}
+                {% set image = "images/games/war.jpeg" %}
+                {% include "casino/partials/game_card.html" %}
+
+            </div>
+        </section>
+
+        <!-- CASHIER -->
+        <section class="casino-section" id="cashier">
+            <h2>💰 Cashier</h2>
+            <div class="game-grid">
+            
+                {% set title = "Cashier" %}
+                {% set image = "images/cashier.webp" %}
+                {% set action_label = "Enter" %}
+                {% include "casino/partials/game_card.html" %}
+            
+            </div>
+        </section>
+
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/music.js') }}"></script>
+
+</body>
+</html>

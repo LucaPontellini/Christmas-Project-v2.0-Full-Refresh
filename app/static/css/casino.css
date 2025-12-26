@@ -1,0 +1,457 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0b0b;
+    color: #ffffff;
+}
+
+/* ================= LAYOUT ================= */
+.casino-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 220px;
+    background: linear-gradient(180deg, #000000, #111111);
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+}
+
+/* titolo */
+.sidebar h2 {
+    color: #f5c400;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* avatar */
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: block;
+    margin: 10px auto 12px;
+    padding: 5px;
+    background: radial-gradient(circle, #2a2a2a, #000);
+    box-shadow: 0 0 10px rgba(245,196,0,.45);
+}
+
+/* ================= USER ACTIONS ================= */
+.user-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.3px;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+/* SIGN UP */
+.btn.register {
+    background: linear-gradient(135deg, #ffcc33, #ffb300);
+    color: #000;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.35),
+        0 4px 10px rgba(255,179,0,.35);
+}
+
+.btn.register:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.45),
+        0 6px 16px rgba(255,179,0,.55);
+}
+
+/* LOGIN */
+.btn.login {
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: #f5c400;
+    border: 1px solid rgba(245,196,0,.6);
+    box-shadow: 0 4px 10px rgba(0,0,0,.5);
+}
+
+.btn.login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 14px rgba(245,196,0,.45);
+}
+
+/* LOGOUT */
+.btn.logout {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(211,47,47,.45);
+}
+
+.btn.logout:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px rgba(211,47,47,.7);
+}
+
+/* ================= MENU ================= */
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 6px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    border-radius: 6px;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+    opacity: 1;
+    color: #f5c400;
+    background: rgba(245,196,0,0.12);
+}
+
+/* ================= MAIN ================= */
+.casino-main {
+    flex: 1;
+    padding: 25px 30px;
+    overflow-y: auto;
+}
+
+/* ================= HERO / WELCOME BONUS ================= */
+.casino-hero {
+    background: linear-gradient(135deg, #6b4f00, #caa300);
+    padding: 35px;
+    border-radius: 18px;
+    margin-bottom: 45px;
+}
+
+/* ================= BONUS INSIDE HERO ================= */
+.bonus-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 8px; /* spazio ridotto tra pulsanti e bonus */
+}
+
+.bonus-option {
+    display: flex;
+    align-items: center;
+    gap: 28px; /* distanza controllata */
+    justify-content: flex-start;
+
+    padding: 22px 28px;
+    border-radius: 26px;
+
+    background: linear-gradient(135deg, #1b1b1b, #0f0f0f);
+    box-shadow: 0 0 22px rgba(245,196,0,.25);
+}
+
+/* variante SPID */
+.bonus-option.fast {
+    background: linear-gradient(135deg, #1d3f2b, #0f2a1d);
+}
+
+/* lato sinistro */
+.bonus-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* immagini bonus */
+.bonus-image {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bonus-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* testo bonus */
+.bonus-text small {
+    display: block;
+    opacity: 0.85;
+    font-size: 14px;
+}
+
+.bonus-text strong {
+    display: block;
+    font-size: 24px;
+    color: #f5c400;
+    margin-top: 4px;
+}
+
+/* bottone */
+.bonus-option button {
+    background: #f5c400;
+    border: none;
+    margin-left: auto; /* lo spinge a destra ma NON troppo */
+    padding: 10px 24px;
+    border-radius: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.bonus-option button:hover {
+    background: #ffda2d;
+}
+
+/* ================= SEZIONI ================= */
+.casino-section {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 55px;
+}
+
+.casino-section::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(245,196,0,.6),
+        transparent
+    );
+}
+
+.casino-section h2 {
+    margin-bottom: 22px;
+    color: #f5c400;
+}
+
+/* ================= GRID ================= */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 22px;
+}
+
+/* ================= GAME CARD ================= */
+.game-card,
+.game {
+    background: #151515;
+    border-radius: 18px;
+    padding: 12px;
+    text-align: center;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow:
+        0 0 12px rgba(245,196,0,.25),
+        0 0 30px rgba(245,196,0,.15);
+}
+
+.game-card:hover,
+.game:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 0 18px rgba(245,196,0,.45),
+        0 0 45px rgba(245,196,0,.25);
+}
+
+/* ================= IMAGE ================= */
+.game-image {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background: #000;
+}
+
+.game-card img,
+.game img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ================= BUTTON GAME ================= */
+.play-btn,
+.game button {
+    background: #f5c400;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.play-btn:hover,
+.game button:hover {
+    background: #ffda2d;
+}
+
+/* ================= MOBILE FIX (TELEFONO) ================= */
+@media (max-width: 768px) {
+
+    /* ===== LAYOUT GENERALE ===== */
+    body {
+        font-size: 16px;
+    }
+
+    .casino-layout {
+        flex-direction: column;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 16px;
+    }
+
+    .sidebar h2 {
+        font-size: 20px;
+    }
+
+    .user-avatar {
+        width: 56px;
+        height: 56px;
+    }
+
+    .user-actions .btn {
+        font-size: 16px;
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .sidebar a {
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    /* ===== MAIN ===== */
+    .casino-main {
+        padding: 16px;
+    }
+
+    /* ===== HERO / BONUS ===== */
+    .casino-hero {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .bonus-options {
+        gap: 22px;
+    }
+
+    .bonus-option {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 22px;
+        gap: 20px;
+        border-radius: 22px;
+    }
+
+    .bonus-left {
+        gap: 16px;
+    }
+
+    .bonus-image {
+        width: 90px;
+        height: 90px;
+    }
+
+    .bonus-text small {
+        font-size: 16px;
+    }
+
+    .bonus-text strong {
+        font-size: 26px;
+    }
+
+    .bonus-option button {
+        width: 100%;
+        font-size: 18px;
+        padding: 16px 0;
+        border-radius: 24px;
+        margin-left: 0;
+    }
+
+    /* ===== SEZIONI ===== */
+    .casino-section {
+        padding-left: 0;
+        margin-bottom: 48px;
+    }
+
+    .casino-section::before {
+        display: none;
+    }
+
+    .casino-section h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    /* ===== GRID GIOCHI ===== */
+    .game-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    /* ===== CARD GIOCO ===== */
+    .game-card,
+    .game {
+        padding: 14px;
+        border-radius: 18px;
+    }
+
+    .game-image {
+        height: 160px;
+        margin-bottom: 14px;
+    }
+
+    .game-card h3,
+    .game h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .play-btn,
+    .game button {
+        font-size: 16px;
+        padding: 12px 22px;
+        border-radius: 22px;
+    }
+
+}
