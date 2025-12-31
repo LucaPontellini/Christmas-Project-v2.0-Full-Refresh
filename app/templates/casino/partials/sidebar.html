@@ -1,0 +1,216 @@
+<aside class="sidebar">
+    <h2>Ponte's Casino</h2>
+
+    <div class="user-profile">
+        {% if user and user.role == "admin" %}
+            <div class="user-avatar admin-photo-bg admin-size" 
+                 style="background-image: url('{{ url_for('static', filename='images/Luca_Pontellini.jpg') }}');">
+            </div>
+        {% else %}
+            <div class="user-avatar {% if user %}logged-in{% endif %}"
+                {% if user %} style="background-color: {{ user_color }}" {% endif %}>
+                
+                {% if user %}
+                    <span class="avatar-initial">{{ user_initial }}</span>
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="Guest">
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if not user %}
+            <button class="btn register" data-open-register>Sign up</button>
+            <button class="btn login" data-open-login>Login</button>
+        {% else %}
+            <a href="{{ url_for('account.logout') }}" class="btn logout">Logout</a>
+            
+            {% if user.role != "admin" %}
+            <form action="{{ url_for('account.delete_account') }}" method="POST">
+                <button type="button" class="btn danger" onclick="openModal('deleteAccount')">Delete account</button>
+            </form>
+            {% endif %}
+
+            {% if user.role == "admin" %}
+                <span class="admin-badge">ADMIN</span>
+            {% endif %}
+        {% endif %}
+
+        {% for category, message in flashed %}
+            {% if category == "success" %}
+                <div class="success-msg sidebar-msg">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if user and user.role != "admin"%}
+        <div class="balance">
+            Balance: <strong id="user-balance">€{{ user.balance }}</strong>
+        </div>
+    {% endif %}
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li class="menu-group">Casino</li>
+        <li><a href="#card-games">Table Games</a></li>
+        <li><a href="#dice-table">Dice & Table</a></li>
+        <li><a href="#roulette">Roulette</a></li>
+        <li><a href="#slots">Slots</a></li>
+        <li class="menu-group">Live & Special</li>
+        <li><a href="#special-games">Live Casino</a></li>
+        <li><a href="#sports">Sports & Betting</a></li>
+        <li class="menu-group">Account</li>
+        <li><a href="#cashier">Cashier</a></li>
+
+        {% if user and user.role == "admin" %}
+            <li class="menu-group">Admin Controls</li>
+            <li><a href="{{ url_for('admin.dashboard') }}" style="font-weight: bold;">Admin Dashboard</a></li>
+        {% endif %}
+    </ul>
+</aside>
+
+<style>
+/* Reset e layout base */
+.user-profile { font-family: 'Segoe UI', Roboto, sans-serif; text-align: center; margin-bottom: 20px; }
+
+.sidebar {
+    width: 260px;
+    background: #0f172a;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    height: fit-content;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 20px;
+    color: #f59e0b;
+    font-weight: 800;
+}
+
+/* AVATAR STANDARD (Per Utenti e Guest) */
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50% !important;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e293b;
+    overflow: hidden !important;
+    border: 2px solid rgba(245, 158, 11, 0.3);
+    position: relative;
+    transition: 0.3s ease;
+}
+
+/* AVATAR ADMIN (Specifico per te) */
+.user-avatar.admin-size {
+    width: 130px; 
+    height: 130px;
+    border: 2px solid #f59e0b;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.admin-photo-bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-initial {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+/* Iniziale più grande se l'admin non ha foto */
+.admin-size .avatar-initial {
+    font-size: 52px;
+}
+
+/* Pulsanti Sidebar */
+.btn {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+    text-align: center;
+}
+
+.btn.login { background: #2563eb; color: #fff; }
+.btn.register { background: #16a34a; color: #fff; }
+.btn.logout { background: #334155; color: #fff; text-decoration: none; }
+.btn.danger { background: #dc2626; color: #fff; }
+
+.admin-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    font-size: 11px;
+    background: #f59e0b;
+    color: #000;
+    border-radius: 4px;
+    font-weight: 800;
+}
+
+.balance {
+    margin: 12px 0;
+    padding: 12px;
+    background: #020617;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.balance strong {
+    color: #f59e0b;
+    font-size: 18px;
+}
+
+/* Link del Menu */
+ul { list-style: none; padding: 0; margin-top: 20px; }
+ul li { margin: 8px 0; }
+ul li a { 
+    color: #cbd5f5; 
+    text-decoration: none; 
+    font-size: 15px;
+    display: block;
+    padding: 4px 0;
+    transition: 0.2s;
+}
+
+ul li a:hover { 
+    color: #f59e0b; 
+    padding-left: 4px;
+}
+
+.menu-group {
+    margin-top: 18px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #f59e0b;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+</style>

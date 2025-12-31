@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ponte's Casino</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+<div class="app-container">
+
+    {% include "casino/partials/sidebar.html" %}
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+{% include "modals.html" %}
+
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auth_modal.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui_toast.js') }}"></script>
+{% block js %}{% endblock %}
+
+</body>
+</html>

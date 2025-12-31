@@ -110,7 +110,7 @@ python run.py
 ```
 
 L’applicazione sarà accessibile all’indirizzo:
-`http://localhost:5001`
+`http://localhost:5000`
 
 ---
 

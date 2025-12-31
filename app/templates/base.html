@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Casino{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casino.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bonus.css') }}">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+{% block content %}{% endblock %}
+
+<script src="{{ url_for('static', filename='js/ui_toast.js') }}"></script>
+<script src="/static/js/auth_ui.js" defer></script>
+<script src="{{ url_for('static', filename='js/bonus.js') }}"></script>
+<script src="{{ url_for('static', filename='js/music.js') }}"></script>
+
+<div id="toast"></div>
+
+</body>
+</html>
