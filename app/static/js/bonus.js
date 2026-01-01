@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     bonusButtons.forEach(btn => {
         btn.addEventListener("click", async () => {
 
-            // 🔒 sicurezza extra (server già protegge)
+            // sicurezza extra (server già protegge)
             if (!document.querySelector(".user-avatar.logged-in")) {
                 if (window.showToast) {
                     showToast("Please log in to claim the bonus", "error");
@@ -36,15 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     throw new Error(data.error || "Unable to activate bonus");
                 }
 
-                // 💰 aggiorna saldo se presente
+                // aggiorna saldo se presente
                 const balanceEl = document.getElementById("user-balance");
                 if (balanceEl && typeof data.new_balance === "number") {
                     balanceEl.innerText = "€" + data.new_balance.toFixed(2);
                 }
 
-                // 🎉 feedback
+                // feedback
                 if (window.showToast) {
-                    showToast("Bonus activated successfully 🎁", "success");
+                    showToast("Bonus activated successfully", "success");
                 }
 
                 // UI success

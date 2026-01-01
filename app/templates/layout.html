@@ -10,22 +10,21 @@
 </head>
 <body>
 
-<div class="app-container">
-
-    {% include "casino/partials/sidebar.html" %}
-
-    <main class="content">
-        {% block content %}{% endblock %}
-    </main>
-
-</div>
-
-{% include "modals.html" %}
-
-<script src="{{ url_for('static', filename='js/index.js') }}"></script>
-<script src="{{ url_for('static', filename='js/auth_modal.js') }}"></script>
-<script src="{{ url_for('static', filename='js/ui_toast.js') }}"></script>
-{% block js %}{% endblock %}
+    <div class="app-container">
+    
+        {% include "casino/partials/sidebar.html" %}
+    
+        <main class="content"> {% block content %}{% endblock %} </main>
+    
+    </div>
+    
+    {% include "modals.html" %}
+    
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/auth_modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui_toast.js') }}"></script>
+    
+    {% block js %}{% endblock %}
 
 </body>
 </html>

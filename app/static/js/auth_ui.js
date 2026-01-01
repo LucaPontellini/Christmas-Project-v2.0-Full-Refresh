@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
 
-    // ================= SINGLE TOAST SYSTEM (FORCED ENGLISH) =================
+    // SINGLE TOAST SYSTEM (FORCED ENGLISH)
     // Gestisce i messaggi di errore e successo con stile coerente al tema
     window.showToast = function (message, type = "success") {
         let toast = document.getElementById("toast");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 4000);
     };
 
-    // ================= MODAL SELECTION =================
+    // MODAL SELECTION
     const loginModal = document.getElementById("loginModal");
     const registerModal = document.getElementById("registerModal");
     const forgotModal = document.getElementById("forgotModal");
@@ -33,10 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const modals = [loginModal, registerModal, forgotModal, resetPinModal, deleteModal].filter(Boolean);
 
-    /**
-     * Apre un modal specifico e chiude gli altri.
-     * Applica il focus automatico sul primo input disponibile.
-     */
+    /* Apre un modal specifico e chiude gli altri.
+     * Applica il focus automatico sul primo input disponibile. */
     function openModal(modal) {
         closeAllModals();
         if (!modal) return;
@@ -50,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modals.forEach(m => m.classList.remove("show"));
     }
 
-    // ================= EVENT LISTENERS =================
+    // EVENT LISTENERS
     
     // Trigger Apertura Modal via attributi data
     document.querySelectorAll("[data-open-login]").forEach(el => 
@@ -76,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ================= TOGGLE PASSWORD (EYE LOGIC) =================
+    // TOGGLE PASSWORD (EYE LOGIC)
     // Gestisce il cambio visibilità password e aggiorna l'icona con glow
     document.querySelectorAll(".toggle-password").forEach(toggle => {
         toggle.addEventListener("click", () => {
@@ -95,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ================= FORM VALIDATION & NO-VALIDATE =================
+    // FORM VALIDATION & NO-VALIDATE
     // Sostituisce i messaggi di sistema del browser con Toast personalizzati in inglese
     document.querySelectorAll(".modal form").forEach(form => {
         form.setAttribute("novalidate", "true");
@@ -122,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ================= URL PARAM & AUTO-OPEN LOGIC =================
+    // URL PARAM & AUTO-OPEN LOGIC
     // Gestisce l'apertura automatica dei modal tramite link email o redirect backend
     const open = params.get("open");
     const usernameParam = params.get("username");

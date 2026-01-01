@@ -1,0 +1,157 @@
+/* BONUS SECTION STYLE (PREMIUM DESIGN) */
+.bonus-box {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 24px;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 1000px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.bonus-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffd700;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.header-icon {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+}
+
+.bonus-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.bonus-card {
+    background: #181818;
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-image-wrapper {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bonus-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.bonus-card h3 {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.bonus-amount {
+    font-size: 34px;
+    font-weight: 900;
+    color: #ffd700;
+    margin: 10px 0 15px;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+}
+
+.bonus-desc {
+    font-size: 15px;
+    color: #999;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    min-height: 45px;
+}
+
+/* STATO CLAIMED (LOGGED IN) */
+.claimed-mode {
+    opacity: 0.6;
+    filter: grayscale(0.4);
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: none !important;
+}
+
+.bonus-btn.claimed {
+    background: #222 !important;
+    color: #666 !important;
+    border: 1px solid #333 !important;
+    cursor: not-allowed;
+    text-shadow: none;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.bonus-card.claimed-mode h3::after {
+    content: ' ✓';
+    color: #ffd700;
+}
+
+/* BUTTONS */
+.bonus-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bonus-btn.gold {
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.bonus-btn.gold:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.bonus-btn.gray {
+    background: linear-gradient(135deg, #333, #111);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bonus-btn.gray:hover {
+    background: #444;
+    transform: translateY(-2px);
+}
+
+.bonus-card.spid {
+    border: 2px solid #ffd700;
+    background: linear-gradient(180deg, #1e1e1e, #121212);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .bonus-cards { grid-template-columns: 1fr; }
+    .bonus-box { padding: 25px 15px; margin: 20px; }
+    .bonus-header { font-size: 22px; }
+}

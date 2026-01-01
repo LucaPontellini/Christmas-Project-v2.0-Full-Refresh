@@ -1,5 +1,6 @@
-<footer class="casino-footer">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
 
+<footer class="casino-footer">
     <div class="footer-top">
 
         <div class="footer-col">
@@ -30,31 +31,37 @@
         <div class="footer-col">
             <h4>Payment Methods</h4>
             <div class="footer-logos">
-                <img src="/static/images/payments/AmericanExpress.png" alt="American Express">
-                <img src="/static/images/payments/ApplePay.png" alt="Apple Pay">
-                <img src="/static/images/payments/BankTransfer.png" alt="Bank Transfer">
-                <img src="/static/images/payments/ecoPayz.png" alt="ecoPayz">
-                <img src="/static/images/payments/GooglePay.png" alt="Google Pay">
-                <img src="/static/images/payments/Maestro.png" alt="Maestro">
-                <img src="/static/images/payments/MasterCard.png" alt="MasterCard">
-                <img src="/static/images/payments/neteller.png" alt="Neteller">
-                <img src="/static/images/payments/PayPal.png" alt="PayPal">
-                <img src="/static/images/payments/paysafecard.png" alt="Paysafecard">
-                <img src="/static/images/payments/postepay.png" alt="Postepay">
-                <img src="/static/images/payments/Skrill.png" alt="Skrill">
-                <img src="/static/images/payments/Sofort.png" alt="Sofort">
-                <img src="/static/images/payments/Trustly.png" alt="Trustly">
-                <img src="/static/images/payments/VISA.png" alt="VISA">
+                <img src="{{ url_for('static', filename='images/payments/AmericanExpress.png') }}" alt="American Express">
+                <img src="{{ url_for('static', filename='images/payments/ApplePay.png') }}" alt="Apple Pay">
+                <img src="{{ url_for('static', filename='images/payments/BankTransfer.png') }}" alt="Bank Transfer">
+                <img src="{{ url_for('static', filename='images/payments/ecoPayz.png') }}" alt="ecoPayz">
+                <img src="{{ url_for('static', filename='images/payments/GooglePay.png') }}" alt="Google Pay">
+                <img src="{{ url_for('static', filename='images/payments/Maestro.png') }}" alt="Maestro">
+                <img src="{{ url_for('static', filename='images/payments/MasterCard.png') }}" alt="MasterCard">
+                <img src="{{ url_for('static', filename='images/payments/neteller.png') }}" alt="Neteller">
+                <img src="{{ url_for('static', filename='images/payments/PayPal.png') }}" alt="PayPal">
+                <img src="{{ url_for('static', filename='images/payments/paysafecard.png') }}" alt="Paysafecard">
+                <img src="{{ url_for('static', filename='images/payments/postepay.png') }}" alt="Postepay">
+                <img src="{{ url_for('static', filename='images/payments/Skrill.png') }}" alt="Skrill">
+                <img src="{{ url_for('static', filename='images/payments/Sofort.png') }}" alt="Sofort">
+                <img src="{{ url_for('static', filename='images/payments/Trustly.png') }}" alt="Trustly">
+                <img src="{{ url_for('static', filename='images/payments/VISA.png') }}" alt="VISA">
             </div>
         </div>
 
         <div class="footer-col">
             <h4>License & Security</h4>
             <div class="footer-logos">
-                <a href="https://www.adm.gov.it" target="_blank" rel="noopener"><img src="/static/images/adm.png" alt="ADM Logo"></a>
-                <img src="/static/images/18+.png" alt="18+ Only">
-                <a href="https://www.gamcare.org.uk" target="_blank" rel="noopener"><img src="/static/images/gamcare.png" alt="GamCare"></a>
-                <a href="https://ecogra.org" target="_blank" rel="noopener"><img src="/static/images/ecogra.png" alt="eCOGRA"></a>
+                <a href="https://www.adm.gov.it" target="_blank" rel="noopener">
+                    <img src="{{ url_for('static', filename='images/ADM.png') }}" alt="ADM Logo">
+                </a>
+                <img src="{{ url_for('static', filename='images/18+.png') }}" alt="18+ Only">
+                <a href="https://www.gamcare.org.uk" target="_blank" rel="noopener">
+                    <img src="{{ url_for('static', filename='images/gamcare.png') }}" alt="GamCare">
+                </a>
+                <a href="https://ecogra.org" target="_blank" rel="noopener">
+                    <img src="{{ url_for('static', filename='images/ecogra.png') }}" alt="eCOGRA">
+                </a>
             </div>
             <p class="license-text">
                 ADM License GAD n. 15002<br>
@@ -71,114 +78,4 @@
            <a href="https://www.adm.gov.it" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">www.adm.gov.it</a>
         </p>
     </div>
-
 </footer>
-
-<style>
-/* CSS remain unchanged to keep your design */
-.casino-footer {
-    background: radial-gradient(circle at top, #1a1a1a, #0a0a0a);
-    color: #ccc;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    margin-top: 80px;
-    border-top: 2px solid #ffd700;
-}
-
-.footer-top {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    padding: 70px 60px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.footer-col h4 {
-    color: #ffd700;
-    font-size: 18px;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.footer-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-col li {
-    margin-bottom: 12px;
-    line-height: 1.6;
-}
-
-.footer-col a {
-    color: #bbb;
-    text-decoration: none;
-    transition: all .3s ease;
-}
-
-.footer-col a:hover {
-    color: #ffd700;
-    padding-left: 5px;
-}
-
-.footer-logos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-}
-
-.footer-logos img {
-    height: 40px;
-    width: auto;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px 12px;
-    border-radius: 5px;
-    transition: transform 0.3s ease, background 0.3s ease;
-    object-fit: contain;
-}
-
-.footer-col:last-child .footer-logos img {
-    height: 50px; 
-    background: transparent;
-    padding: 5px;
-}
-
-.footer-logos img:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.license-text {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #888;
-    line-height: 1.7;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    font-size: 13px;
-    color: #777;
-    background: #050505;
-}
-
-.footer-bottom p {
-    margin: 5px 0;
-}
-
-@media (max-width: 1100px) {
-    .footer-top { grid-template-columns: 1fr 1fr; padding: 50px 30px; }
-}
-
-@media (max-width: 600px) {
-    .footer-top { grid-template-columns: 1fr; padding: 40px 20px; text-align: center; }
-    .footer-logos { justify-content: center; }
-    .footer-col h4 { margin-top: 20px; }
-}
-</style>
