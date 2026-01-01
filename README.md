@@ -1,12 +1,12 @@
 # 🎄 Christmas Project – v2.0 Full Refresh
 
-Web application sviluppata con **Flask** come progetto di Natale del 2025. Il progetto rappresenta una **ricostruzione completa** della versione realizzata l’anno precedente, con l’obiettivo di applicare correttamente le architetture e le buone pratiche studiate durante il corso.
+Web application sviluppata con **Flask** come progetto di Natale del 2025. Il progetto rappresenta una **ricostruzione completa** (Full Refresh) della versione realizzata l’anno precedente, con l’obiettivo di applicare correttamente le architetture e le buone pratiche studiate durante il corso.
 
 Repository del progetto originale: https://github.com/LucaPontellini/Christmas-project.git
 
 ---
 
-## 📌 Descrizione del progetto
+## Descrizione del progetto
 
 L’applicazione nasce come una **homepage tematica stile “casino”**, con:
 
@@ -25,7 +25,7 @@ Il progetto è pensato come **scalabile**, con successive estensioni dedicate a:
 
 ---
 
-## 🧠 Obiettivi didattici
+## Obiettivi didattici
 
 L’obiettivo principale è realizzare una **web application Flask strutturata professionalmente**, focalizzandosi su:
 
@@ -41,7 +41,7 @@ L’obiettivo principale è realizzare una **web application Flask strutturata p
 
 ---
 
-## 🗂️ Struttura del progetto
+## Struttura del progetto
 
 La struttura del progetto segue il modello analizzato in classe ed è organizzata per moduli.
 
@@ -49,17 +49,17 @@ Per una descrizione dettagliata delle cartelle, dei file e delle scelte architet
 
 ---
 
-## ⚙️ Tecnologie utilizzate
+## Tecnologie utilizzate
 
 - Python
 - Flask
 - Jinja2
 - HTML / CSS / JavaScript
-- SQLite (fase successiva del progetto)
+- SQLite
 
 ---
 
-## 📈 Livelli di complessità
+## Livelli di complessità
 
 Il progetto è progettato per crescere secondo i livelli di complessità richiesti:
 
@@ -77,9 +77,9 @@ Il progetto è progettato per crescere secondo i livelli di complessità richies
 
 ---
 
-## 🧭 Utilizzo dell’applicazione (passo passo):
+## Utilizzo dell’applicazione (passo passo):
 
-## 📥 Clonare il repository
+## Clonare il repository
 
 Per copiare il progetto in locale:
 
@@ -88,29 +88,30 @@ git clone https://github.com/LucaPontellini/Christmas-Project-v2.0-Full-Refresh.
 cd Christmas-Project-v2.0-Full-Refresh
 ```
 
-## ▶️ Avvio dell’applicazione
+## Avvio dell’applicazione
 
-### 1️⃣ Creare e attivare un ambiente virtuale
+### 1. Creare e attivare un ambiente virtuale
 
 ```bash
 python -m venv .venv      # Windows
-source .venv/bin/activate # macOS / Linux
+
+.venv\Scripts\activate    # Attivazione (Windows)
+source .venv/bin/activate # Attivazione (macOS/Linux)
 ```
 
-### 2️⃣ Installare le dipendenze
+### 2. Installare le dipendenze
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Avviare l’applicazione
+### 3. Avviare l’applicazione
 
 ```bash
 python run.py
 ```
 
-L’applicazione sarà accessibile all’indirizzo:
-`http://localhost:5000`
+L’applicazione sarà accessibile all’indirizzo: `http://localhost:5000`
 
 ---
 

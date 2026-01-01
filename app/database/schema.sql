@@ -19,10 +19,9 @@ CREATE TABLE IF NOT EXISTS users (
     role TEXT NOT NULL DEFAULT 'user', -- Ruolo dell’utente: "user" o "admin". DEFAULT 'user' assegna automaticamente il ruolo base.
     balance INTEGER NOT NULL DEFAULT 0, -- Saldo del conto del giocatore. Utile per gestire depositi, prelievi e vincite.
     is_deleted BOOLEAN NOT NULL DEFAULT 0, -- Soft delete: 0 = attivo, 1 = eliminato. L’utente non viene rimosso fisicamente dal DB (questa è semi-fittizia).
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data e ora di registrazione dell’utente.
+    created_at DATETIME DEFAULT (datetime('now', 'localtime')), -- Data e ora di registrazione dell’utente in formato locale.
     deleted_at DATETIME -- Data e ora in cui l’utente è stato soft-deleted.
 );
-
 /* TABELLA PASSWORD_RESET
    
 Gestisce i PIN temporanei per il reset della password. Ogni PIN:
@@ -87,7 +86,7 @@ DROP TABLE IF EXISTS transactions;
 CREATE TABLE transactions (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- Identificatore univoco della transazione.
     user_id INTEGER NOT NULL, -- Utente a cui appartiene la transazione.
-    type TEXT NOT NULL CHECK (type IN ('deposito', 'prelievo', 'vincita', 'perdita', 'bonus', 'manual_adj')), -- Tipo di transazione. CHECK limita i valori ammessi.
+    type TEXT NOT NULL,-- Tipo di transazione. Può essere: deposito, prelievo, vincita, perdita, bonus, manual_adj.
     amount INTEGER NOT NULL, -- Importo della transazione (positivo o negativo a seconda del tipo).
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data e ora della registrazione della transazione.
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE -- Se l’utente viene eliminato, anche le sue transazioni vengono eliminate.
@@ -186,7 +185,7 @@ Serve per:
 CREATE TABLE IF NOT EXISTS access_logs (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- Identificatore univoco del log.
     user_id INTEGER, -- Utente che ha effettuato l’azione. Può essere NULL se l’utente viene eliminato (ON DELETE SET NULL).
-    action TEXT NOT NULL CHECK (action IN ('login', 'logout')), -- Tipo di azione registrata: login o logout. CHECK garantisce che non vengano inseriti valori non validi.
+    action TEXT NOT NULL, -- Tipo di azione registrata: "login" o "logout".
     ip_address TEXT, -- Indirizzo IP da cui è avvenuto l’accesso o la disconnessione.
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data e ora in cui è stato registrato l’evento.
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL -- Se l’utente viene eliminato, il campo user_id diventa NULL per mantenere comunque lo storico degli accessi.
@@ -207,7 +206,7 @@ CREATE TABLE admin_logs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  -- Identificatore univoco del log
     admin_id INTEGER, -- Admin che ha eseguito l’azione. Può diventare NULL se l’admin viene eliminato.
     target_user_id INTEGER, -- Utente coinvolto nell’azione. Può diventare NULL se l’utente viene eliminato.
-    action TEXT NOT NULL CHECK (action IN ('soft_delete', 'restore', 'hard_delete')), -- Tipo di azione amministrativa registrata.
+    action TEXT NOT NULL, -- Tipo di azione: soft_delete, restore, hard_delete.
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Timestamp automatico dell’azione.
     FOREIGN KEY (admin_id) REFERENCES users(id) ON DELETE SET NULL, -- Mantiene il log anche se l’admin viene eliminato.
     FOREIGN KEY (target_user_id) REFERENCES users(id) ON DELETE SET NULL -- Mantiene il log anche se l’utente viene eliminato.

@@ -1,75 +1,54 @@
-from flask import (
-    Blueprint,
-    request,
-    redirect,
-    url_for,
-    session,
-    flash,
-    abort,
-)
+from flask import Blueprint, request, redirect, url_for, session, flash, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app.account.repository import (
-    get_user_by_username,
-    get_user_by_id,
-    create_user,
-    get_user_by_username_any,
-    update_password,
-    verify_pin,
-    delete_pins_for_user,
-    soft_delete_user,
-)
-
+from app.account.repository import get_user_by_username, get_user_by_id, create_user, get_user_by_username_any, update_password, verify_pin, delete_pins_for_user, soft_delete_user
 from app.account.services import create_reset_pin
+from app.admin.repository import log_admin_action
 from app.bonus.repository import get_registration_bonus
 from app.database.db import execute, query_one
 
+# Definisce il Blueprint per l'account
 account = Blueprint("account", __name__, url_prefix="/account")
 
-# ---------------------------
-# REGISTRAZIONE
-# ---------------------------
+# Registrazione utente
 @account.route("/register", methods=["POST"])
 def register():
     username = request.form.get("username")
     password = request.form.get("password")
 
+    # Controllo se i campi sono vuoti
     if not username or not password:
         flash("Missing required fields", "register_error")
         return redirect(url_for("casino.lobby", open="register"))
 
+    # Controllo lunghezza password
     if len(password) < 6:
         flash("Password must be at least 6 characters", "register_error")
         return redirect(url_for("casino.lobby", open="register"))
 
+    # Controllo se l'username esiste già
     existing = get_user_by_username_any(username)
-
     if existing:
         if existing["is_deleted"]:
-            flash(
-                "This username was previously used and is disabled. Please contact support.",
-                "register_error"
-            )
+            flash("This username was previously used and is disabled.", "register_error")
         else:
-            flash(
-                "This username already exists. Please log in.",
-                "register_error"
-            )
+            flash("This username already exists.", "register_error")
         return redirect(url_for("casino.lobby", open="register"))
 
-    create_user(
-        username=username,
-        password=generate_password_hash(password),
-        avatar="images/user_icon.png",
-        role="user",
-    )
+    # Crea l'utente nel database
+    password_hashata = generate_password_hash(password)
+    create_user(username=username, password=password_hashata, avatar="images/user_icon.png", role="user")
+    
+    # Recupera l'utente appena creato per fargli il log
+    nuovo_utente = get_user_by_username(username)
+    if nuovo_utente:
+        # Registra l'azione nella dashboard admin
+        log_admin_action(None, nuovo_utente['id'], "registration")
 
     flash("Registration completed! Login now.", "success")
     return redirect(url_for("casino.lobby", open="login"))
 
-# ---------------------------
-# LOGIN
-# ---------------------------
+# Login utente
 @account.route("/login", methods=["POST"])
 def login():
     username = request.form.get("username")
@@ -78,59 +57,62 @@ def login():
 
     user = get_user_by_username(username)
 
-    if not user or not check_password_hash(user["password"], password):
-        flash("Incorrect username or password. Please try again.", "login_error")
+    # Controlla se l'utente esiste e la password è giusta
+    if not user:
+        flash("User not found.", "login_error")
+        return redirect(url_for("casino.lobby", open="login"))
+    
+    if not check_password_hash(user["password"], password):
+        flash("Incorrect password.", "login_error")
         return redirect(url_for("casino.lobby", open="login"))
 
+    # Pulisce la sessione vecchia e crea quella nuova
     session.clear()
     session["user_id"] = user["id"]
     session["role"] = user["role"]
 
-    # Gestione Bonus (solo per utenti non admin)
+    # Assegnazione del bonus di registrazione se applicabile
     if user["role"] != "admin":
-        bonus_already_claimed = query_one(
-            "SELECT 1 FROM user_bonuses WHERE user_id = ?",
-            (user["id"],),
-        )
+        # Controlliamo se ha già preso bonus
+        gia_preso = query_one("SELECT 1 FROM user_bonuses WHERE user_id = ?", (user["id"],))
 
-        if not bonus_already_claimed:
-            bonus_type = "spid" if auth_method == "spid" else "classic"
-            bonus_data = get_registration_bonus(bonus_type)
+        if not gia_preso:
+            # Scegle se dare il bonus SPID o quello CLASSIC
+            if auth_method == "spid":
+                tipo_bonus = "spid"
+            else:
+                tipo_bonus = "classic"
+            
+            # Prende i dati del bonus (quanti soldi dare)
+            dati_bonus = get_registration_bonus(tipo_bonus)
 
-            if bonus_data:
-                execute(
-                    "INSERT INTO user_bonuses (user_id, bonus_id) VALUES (?, ?)",
-                    (user["id"], bonus_data["id"]),
-                )
-                execute(
-                    "UPDATE users SET balance = balance + ? WHERE id = ?",
-                    (bonus_data["amount"], user["id"]),
-                )
-                flash(
-                    f"You received a {bonus_data['amount']}€ {bonus_type.upper()} bonus!",
-                    "success",
-                )
+            if dati_bonus:
+                # Dà il bonus all'utente
+                execute("INSERT INTO user_bonuses (user_id, bonus_id) VALUES (?, ?)", (user["id"], dati_bonus["id"]))
+                execute("UPDATE users SET balance = balance + ? WHERE id = ?", (dati_bonus["amount"], user["id"]))
+                flash(f"You received a {dati_bonus['amount']}€ bonus!", "success")
 
-    execute(
-        "INSERT INTO access_logs (user_id, action, ip_address) VALUES (?, 'login', ?)",
-        (user["id"], request.remote_addr),
-    )
+    # Scrive il log per la Dashboard Admin (Tag Blu LOGIN)
+    log_admin_action(None, user["id"], "login")
 
     flash(f"Welcome back, {user['username']}!", "success")
     return redirect(url_for("casino.lobby"))
 
-# ---------------------------
-# LOGOUT
-# ---------------------------
+# Logout utente
 @account.route("/logout")
 def logout():
+    # Prende l'ID prima di cancellare la sessione
+    id_utente = session.get("user_id")
+    
+    if id_utente:
+        # Logga che è uscito
+        log_admin_action(None, id_utente, "logout")
+
     session.clear()
     flash("You have been logged out.", "info")
     return redirect(url_for("casino.lobby"))
 
-# ---------------------------
-# FORGOT PASSWORD → GENERA PIN
-# ---------------------------
+# Recupero password (FASE 1: GENERA PIN)
 @account.route("/forgot-pin", methods=["POST"])
 def forgot_pin():
     username = request.form.get("username")
@@ -141,80 +123,73 @@ def forgot_pin():
 
     user = get_user_by_username(username)
     if not user:
-        flash("No account found with that username", "forgot_error")
+        flash("User not found.", "forgot_error")
         return redirect(url_for("casino.lobby", open="forgot"))
 
-    # Genera il PIN tramite il service e salva in sessione l'username per il reset
-    pin = create_reset_pin(user["id"])
+    # Crea il PIN e lo salva in sessione
+    pin_generato = create_reset_pin(user["id"])
     session["reset_username"] = username
 
-    # Passiamo il PIN via flash (categoria 'reset_pin') per attivare il modal in JS
-    flash(pin, "reset_pin")
+    # Logga la richiesta di sicurezza
+    log_admin_action(None, user["id"], "pin_request")
 
+    flash(pin_generato, "reset_pin")
     return redirect(url_for("casino.lobby"))
 
-# ---------------------------
-# RESET PASSWORD
-# ---------------------------
+# Recupero password (FASE 2: NUOVA PASSWORD)
 @account.route("/reset-password", methods=["POST"])
 def reset_password():
     username = request.form.get("username")
     pin = request.form.get("pin")
-    new_password = request.form.get("password")
+    nuova_pass = request.form.get("password")
 
-    # Validazione dati
-    if not username or not pin or not new_password:
+    # Controlli di sicurezza
+    if not username or not pin or not nuova_pass:
         flash("Missing data", "reset_error")
         return redirect(url_for("casino.lobby"))
 
-    if session.get("reset_username") != username:
-        flash("Session expired. Try again.", "reset_error")
-        return redirect(url_for("casino.lobby"))
-
     user = get_user_by_username(username)
-    if not user:
-        flash("Invalid user", "reset_error")
-        return redirect(url_for("casino.lobby"))
-
-    # Verifica se il PIN inserito è corretto
+    
+    # Verifica il PIN
     if verify_pin(user["id"], pin):
-        # CASO 1: PIN CORRETTO
-        update_password(user["id"], generate_password_hash(new_password))
+        # Se il PIN è giusto, cambia la password
+        nuova_pass_hashata = generate_password_hash(nuova_pass)
+        update_password(user["id"], nuova_pass_hashata)
+        
+        # Log di sicurezza
+        log_admin_action(None, user["id"], "password_reset")
+        
+        # Pulizia PIN e sessione temporanea
         delete_pins_for_user(user["id"])
         session.pop("reset_username", None)
-        flash("Password updated! Log in now.", "success")
+        
+        flash("Password updated!", "success")
         return redirect(url_for("casino.lobby", open="login"))
     else:
-        # CASO 2: PIN ERRATO -> RIGENERAZIONE AUTOMATICA
-        # Usiamo la tua funzione per creare un nuovo codice
-        new_pin_code = create_reset_pin(user["id"])
-        
-        # Inviamo entrambi i messaggi flash
-        flash("Invalid PIN. A new one has been generated for you.", "reset_error")
-        flash(new_pin_code, "reset_pin") 
-        
-        # Il redirect ricarica la pagina:
-        # - reset_error apre il modal tramite JS
-        # - reset_pin mostra il nuovo box dorato
+        # Se il PIN è sbagliato, ne crea uno nuovo e lo ridà
+        nuovo_pin = create_reset_pin(user["id"])
+        flash("Invalid PIN. A new one was generated.", "reset_error")
+        flash(nuovo_pin, "reset_pin") 
         return redirect(url_for("casino.lobby"))
 
-# ---------------------------
-# DELETE ACCOUNT (SOFT)
-# ---------------------------
+# Cancellazione account (SOFT DELETE)
 @account.route("/delete", methods=["POST"])
 def delete_account():
+    # Se non si è loggati, non si può farlo
     if "user_id" not in session:
         abort(403)
 
     user = get_user_by_id(session["user_id"])
-    if not user:
-        abort(404)
-
+    
+    # Un admin non può cancellarsi da solo da qui
     if user["role"] == "admin":
-        abort(403)
+        flash("Admins cannot delete themselves.", "error")
+        return redirect(url_for("admin.dashboard"))
 
+    # Log azione e poi cancellazione
+    log_admin_action(None, user["id"], "self_delete")
     soft_delete_user(user["id"])
+    
     session.clear()
-
-    flash("Your account has been deleted.", "info")
+    flash("Account deleted.", "info")
     return redirect(url_for("casino.lobby"))

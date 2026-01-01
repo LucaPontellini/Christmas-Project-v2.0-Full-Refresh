@@ -5,20 +5,24 @@
 
 <aside class="sidebar">
     <h2>Ponte's Casino</h2>
+
     <div class="user-profile">
         {% if user and user.role == "admin" %}
-            <div class="user-avatar admin-photo-bg" style="background-image: url('{{ url_for('static', filename='images/Luca_Pontellini.jpg') }}');"></div>
+            <div class="user-avatar admin-photo-bg" 
+                 style="background-image: url('{{ url_for('static', filename='images/Luca_Pontellini.jpg') }}');">
+            </div>
         {% else %}
-            <div class="user-avatar">
-                <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="User">
+            <div class="user-avatar" 
+                 style="background-image: url('{{ url_for('static', filename='images/user_icon.png') }}');">
             </div>
         {% endif %}
-        
+
         {% if user %}
             <a href="{{ url_for('account.logout') }}" class="btn logout">Logout</a>
             <div class="admin-badge">ADMIN</div>
         {% endif %}
     </div>
+
     <ul>
         <li><a href="{{ url_for('casino.lobby') }}">Back to Casino</a></li>
         <li class="menu-group">Dashboard</li>
@@ -30,10 +34,13 @@
 </aside>
 
 <div class="admin-main">
+
     <div class="header-flex">
         <h1>Global Dashboard</h1>
         <div class="server-status">
-            Server Status: <span class="status-online">● ONLINE</span>
+            Server Status: 
+            <span class="status-dot-online pulse"></span>
+            <span class="text-online">ONLINE</span>
         </div>
     </div>
 
@@ -48,28 +55,50 @@
     {% endwith %}
 
     <div id="stats-grid" class="stats-grid section-box">
-        <div class="stat-card"><h3>Total Users</h3><span class="value">{{ stats.users }}</span></div>
-        <div class="stat-card"><h3>Chips Volume</h3><span class="value">€{{ stats.total_chips_value or '0' }}</span></div>
-        <div class="stat-card"><h3>GGR (Net Revenue)</h3><span class="value success-text">€{{ stats.revenue or '0' }}</span></div>
-        <div class="stat-card"><h3>Bonuses Issued</h3><span class="value danger-text">€{{ stats.total_bonuses or '0' }}</span></div>
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <span class="value">{{ stats.users }}</span>
+        </div>
+        <div class="stat-card">
+            <h3>Chips Volume</h3>
+            <span class="value">€{{ stats.total_chips_value or 0 }}</span>
+        </div>
+        <div class="stat-card">
+            <h3>GGR (Net Revenue)</h3>
+            <span class="value success-text">€{{ stats.revenue or 0 }}</span>
+        </div>
+        <div class="stat-card">
+            <h3>Bonuses Issued</h3>
+            <span class="value danger-text">€{{ stats.total_bonuses or 0 }}</span>
+        </div>
     </div>
 
     <div id="account-management" class="section-box">
         <h2 class="section-title">Account Management</h2>
-        
+
         <div class="delete-legend">
-            <p><strong>Soft Delete:</strong> Disabilita l'accesso ma mantiene i dati nel DB.</p>
-            <p><strong>Hard Delete:</strong> Rimuove permanentemente l'utente. Azione irreversibile.</p>
+            <p><strong>Soft Delete:</strong> Disables access but keeps DB data.</p>
+            <p><strong>Hard Delete:</strong> Permanent removal (irreversible).</p>
         </div>
 
-        <table>
-            <thead>
-                <tr><th>Username</th><th>Balance</th><th>Status</th><th>Actions</th></tr>
-            </thead>
-            <tbody>
-                {% for u in users %}
+        <div class="table-container" style="overflow-x: auto;">
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ u.username }}</td>
+                        <th>Username</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td>
+                            <strong class="user-name-label {% if u.role == 'admin' %}is-admin{% else %}is-user{% endif %}">
+                                {{ u.username }}
+                            </strong>
+                        </td>
                         <td class="balance-cell">€ {{ u.balance }}</td>
                         <td>
                             <span class="status-tag {{ 'status-deleted' if u.is_deleted else 'status-active' }}">
@@ -79,73 +108,106 @@
                         <td>
                             <div class="action-group">
                                 {% if u.id != user.id and u.role != "admin" and not u.is_deleted %}
-                                    <form action="{{ url_for('admin.add_balance', user_id=u.id) }}" method="POST" class="add-balance-form">
-                                        <input type="number" name="amount" placeholder="0">
-                                        <button name="action" value="add" class="btn-small btn-add" disabled>+</button>
-                                        <button name="action" value="sub" class="btn-small btn-sub" disabled>-</button>
-                                    </form>
+                                <form action="{{ url_for('admin.add_balance', user_id=u.id) }}" method="POST" class="add-balance-form">
+                                    <input type="number" name="amount" placeholder="0">
+                                    <button name="action" value="add" class="btn-small btn-add">+</button>
+                                    <button name="action" value="sub" class="btn-small btn-sub">-</button>
+                                </form>
                                 {% endif %}
 
                                 {% if u.id != user.id %}
                                     {% if not u.is_deleted %}
-                                        <form action="{{ url_for('admin.delete_user', user_id=u.id) }}" method="POST">
-                                            <button class="btn-small btn-soft">Soft Delete</button>
-                                        </form>
+                                    <form action="{{ url_for('admin.delete_user', user_id=u.id) }}" method="POST">
+                                        <button class="btn-small btn-soft">Soft Delete</button>
+                                    </form>
                                     {% else %}
-                                        <div class="restore-group">
-                                            <form action="{{ url_for('admin.restore_user_route', user_id=u.id) }}" method="POST">
-                                                <button class="btn-small btn-restore">Restore</button>
-                                            </form>
-                                            <form action="{{ url_for('admin.hard_delete_user_route', user_id=u.id) }}" method="POST">
-                                                <button type="button" class="btn-small btn-hard-delete hard-delete-btn" data-username="{{ u.username }}">Hard Delete</button>
-                                            </form>
-                                        </div>
+                                    <div style="display: flex; gap: 5px;">
+                                        <form action="{{ url_for('admin.restore_user_route', user_id=u.id) }}" method="POST">
+                                            <button class="btn-small btn-restore">Restore</button>
+                                        </form>
+                                        <button type="button" 
+                                                class="btn-small btn-hard-delete hard-delete-btn" 
+                                                data-username="{{ u.username }}"
+                                                data-url="{{ url_for('admin.hard_delete_user_route', user_id=u.id) }}">
+                                            Hard Delete
+                                        </button>
+                                    </div>
                                     {% endif %}
                                 {% endif %}
                             </div>
                         </td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div id="cash-flow" class="section-box">
         <h2 class="section-title">Recent Cash Flow</h2>
-        <table>
-            <thead><tr><th>User</th><th>Type</th><th>Amount</th></tr></thead>
-            <tbody>
-                {% for t in transactions %}
-                <tr>
-                    <td>{{ t.username }}</td>
-                    <td><span class="status-tag">{{ t.type }}</span></td>
-                    <td class="amount-cell {{ 'danger-text' if t.amount < 0 else 'success-text' }}">
-                        {% if t.amount > 0 %}+{% endif %} €{{ t.amount }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-container" style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr><th>User</th><th>Type</th><th>Amount</th></tr>
+                </thead>
+                <tbody>
+                    {% for t in transactions %}
+                    <tr>
+                        <td>{{ t.username }}</td>
+                        <td><span class="status-tag">{{ t.type }}</span></td>
+                        <td class="{{ 'danger-text' if t.amount < 0 else 'success-text' }}">
+                            {% if t.amount > 0 %}+{% endif %}€{{ t.amount|abs }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div id="system-activity" class="section-box">
         <h2 class="section-title">System Activity</h2>
-        <table>
-            <thead><tr><th>User</th><th>Action</th><th>Time</th></tr></thead>
-            <tbody>
-                {% for l in logs %}
-                <tr>
-                    <td>{{ l.username or "Guest" }}</td>
-                    <td>
-                        <span class="status-tag {{ 'activity-tag-login' if l.action|lower == 'login' else '' }}">
-                            {{ l.action }}
-                        </span>
-                    </td>
-                    <td>{{ l.created_at }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-container" style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr><th>User</th><th>Action</th><th>Time</th></tr>
+                </thead>
+                <tbody>
+                    {% for l in logs %}
+                    <tr>
+                        <td>
+                            <strong class="user-name-label {% if l.username == 'admin' %}is-admin{% else %}is-user{% endif %}">
+                                {{ l.username or "Guest" }}
+                            </strong>
+                        </td>
+                        <td>
+                            {% set action_lower = l.action|lower %}
+                            {% if 'hard_delete' in action_lower %}
+                                <span class="status-tag tag-danger">HARD DELETE</span>
+                            {% elif 'delete' in action_lower and 'hard' not in action_lower %}
+                                <span class="status-tag tag-warning">SOFT DELETE</span>
+                            {% elif 'balance' in action_lower or 'adj' in action_lower %}
+                                <span class="status-tag tag-balance-adj">BALANCE ADJ</span>
+                            {% elif 'restore' in action_lower %}
+                                <span class="status-tag tag-success">RESTORE</span>
+                            {% elif 'register' in action_lower %}
+                                <span class="status-tag tag-registration">REGISTRATION</span>
+                            {% elif 'login' in action_lower %}
+                                <span class="status-tag tag-login">LOGIN</span>
+                            {% elif 'logout' in action_lower %}
+                                <span class="status-tag tag-logout">LOGOUT</span>
+                            {% elif 'pin' in action_lower or 'password' in action_lower or 'security' in action_lower %}
+                                <span class="status-tag tag-security">SECURITY</span>
+                            {% else %}
+                                <span class="status-tag tag-info">{{ l.action|replace('_',' ')|upper }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="time-cell">{{ l.created_at|string|truncate(19, True, '') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -153,14 +215,15 @@
     <div class="modal-content">
         <h2 class="danger-text">⚠️ PERMANENT DELETE</h2>
         <p>Are you sure you want to permanently delete <strong id="modal-username"></strong>?</p>
-        <p class="modal-warning">This action cannot be undone.</p>
+        <p class="modal-warning">This action cannot be undone and all data will be lost.</p>
         <div class="modal-actions">
             <button id="cancel-delete" class="btn-small btn-cancel">Cancel</button>
-            <button id="confirm-delete" class="btn-small btn-hard-delete">Confirm Delete</button>
+            <form id="hard-delete-form" method="POST" style="display: inline;">
+                <button type="submit" class="btn-small btn-hard-delete">Confirm Delete</button>
+            </form>
         </div>
     </div>
 </div>
 
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-
 {% endblock %}
