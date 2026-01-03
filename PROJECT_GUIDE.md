@@ -123,7 +123,8 @@ Christmas-Project-v2.0-Full-Refresh/
 │   ├── database/                               # Infrastruttura Dati
 │   │   ├── __init__.py                         # Inizializzazione Blueprint
 │   │   ├── db.py                               # Gestione connessione SQLite: Factory, RowFactory e wrapper per query (one, all, execute, many).
-│   │   └── schema.sql                          # Definizione tabelle: Utenti, Bonus, Transazioni, Fiches e Log con logica di cancellazione a cascata.
+│   │   ├── schema.sql                          # Definizione tabelle: Utenti, Bonus, Transazioni, Fiches e Log con logica di cancellazione a cascata.
+│   │   └── er_diagram.md                       # Documentazione visiva delle relazioni tra entità del database (Entity-Relationship Diagram).
 │   │
 │   ├── main/                                   # Blueprint Landing Page
 │   │   ├── __init__.py                         # Inizializzazione Blueprint
@@ -380,6 +381,15 @@ L’interfaccia è **completamente responsive**, con adattamenti specifici per d
 - pulsanti full-width e spaziature maggiorate per touch
 
 Le regole responsive sono gestite tramite **media queries** all’interno di `casino.css`, mantenendo separata la logica desktop da quella mobile.
+
+---
+
+## Database Design & Struttura Dati
+
+Il sistema utilizza **SQLite** come motore di database. La progettazione segue i principi di integrità referenziale con gestione avanzata dei log e delle transazioni.
+
+* **Schema SQL:** Il codice sorgente per la creazione delle tabelle è disponibile in [`app/database/schema.sql`](app/database/schema.sql).
+* **Diagramma ER:** La rappresentazione visiva delle entità e delle relazioni (Entity-Relationship) è consultabile nel file [`app/database/er_diagram.md`](app/database/er_diagram.md).
 
 ---
 
