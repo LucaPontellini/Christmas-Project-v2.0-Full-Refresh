@@ -39,7 +39,7 @@ Il progetto è pensato come base per una futura estensione:
 
 Il progetto è stato sviluppato seguendo i criteri ufficiali di valutazione per misurarne la **scalabilità**, la **qualità tecnica** e il livello di **maturità architetturale**.
 
-![Livelli di Complessità](imposed_difficulty_levels.png)
+![Livelli di Complessità](Imposed_difficulty_levels.png)
 
 # Stato Attuale del Progetto: **LIVELLO PRO**
 
