@@ -39,7 +39,7 @@ Il progetto è pensato come base per una futura estensione:
 
 Il progetto è stato sviluppato seguendo i criteri ufficiali di valutazione per misurarne la **scalabilità**, la **qualità tecnica** e il livello di **maturità architetturale**.
 
-![Livelli di Complessità](Imposed_difficulty_levels.png)
+![Livelli di Complessità](docs_images/others/Imposed_difficulty_levels.png)
 
 # Stato Attuale del Progetto: **LIVELLO PRO**
 
@@ -295,7 +295,80 @@ Christmas-Project-v2.0-Full-Refresh/
 │
 ├── README.md                                   # Il file che hai appena scritto (Presentazione)
 │
-└── imposed_difficulty_levels.png               # Immagine riassuntiva dei livelli di complessità tecniche raggiunte
+└── docs_images/                                # Archivio immagini per la documentazione. Non viene utilizzato dall'applicazione
+    ├── admin/                                  # Screenshot del pannello amministratore
+    │   ├── account_management.JPG              # Gestione utenti: soft delete, restore, azioni amministrative
+    │   ├── admin_dashboard_1.JPG               # Dashboard admin: KPI principali
+    │   ├── admin_dashboard_2.JPG               # Dashboard admin: viste alternative e filtri
+    │   ├── admin_dashboard.JPG                 # Dashboard amministratore (overview)
+    │   ├── admin_logs.JPG                      # Log di sistema e tracciamento attività
+    │   ├── hard_delete.JPG                     # Eliminazione definitiva account (hard delete)
+    │   ├── recent_cash_flow.JPG                # Storico movimenti di cassa recenti
+    │   ├── system_activity.JPG                 # Monitor attività globale del sistema
+    │   ├── total_user_1.JPG                    # Statistiche utenti registrati (vista 1)
+    │   └── total_user_2.JPG                    # Statistiche utenti registrati (vista 2)
+    │
+    ├── database/                               # Documentazione database e persistenza dati
+    │   ├── database_1.JPG                      # Panoramica iniziale del database SQLite
+    │   ├── database_2.JPG                      # Tabelle principali e relazioni
+    │   ├── database_3.JPG                      # Bonus, transazioni e logiche economiche
+    │   ├── database_4.JPG                      # Tabelle di log e auditing
+    │   ├── database_5.JPG                      # Query, vincoli e foreign key
+    │   ├── database_6.JPG                      # Schema completo finale del database
+    │   ├── reset_pin.JPG                       # Flusso di reset PIN / password
+    │   └── transactions.JPG                    # Storico completo delle transazioni
+    │
+    ├── forms/                                  # Interfacce dei form utente
+    │   ├── form_login_1.JPG                    # Form di login: layout standard
+    │   ├── form_login_2.JPG                    # Form di login: stato alternativo
+    │   ├── form_login_3.GPG                    # Form di login: feedback visivo / stato finale              
+    │   ├── form_recovery_1.JPG                 # Recupero password: inserimento dati
+    │   ├── form_recovery_2.JPG                 # Recupero password: verifica PIN
+    │   ├── form_registrazione_1.JPG            # Registrazione utente: step iniziale
+    │   ├── form_registrazione_2.JPG            # Registrazione utente: validazione dati
+    │   ├── form_registrazione_3.JPG            # Registrazione utente completata
+    │   └── errors/                             # Stati di errore e validazioni UI
+    │       ├── errore_form_login_1.JPG         # Errore: credenziali non valide
+    │       ├── errore_form_login_2.JPG         # Errore: campi mancanti
+    │       ├── errore_form_recovery_1.JPG      # Errore: utente non trovato
+    │       ├── errore_form_recovery_2.JPG      # Errore: PIN non valido
+    │       ├── errore_form_recovery_3.JPG      # Errore: PIN scaduto
+    │       ├── errore_form_registrazione_1.JPG # Errore: username già esistente
+    │       ├── errore_form_registrazione_2.JPG # Errore: password non conforme
+    │       └── errore_form_registrazione_3.JPG # Errore: validazione generica
+    │
+    ├── lobby/                                  # Casino lobby e User Experience
+    │   ├── delete_account.JPG                  # Eliminazione account lato utente
+    │   ├── footer.JPG                          # Footer globale del sito
+    │   ├── lobby_1.png                         # Lobby: vista generale
+    │   ├── lobby_2.png                         # Lobby: categorie di gioco
+    │   ├── lobby_3.png                         # Lobby: card dei giochi
+    │   ├── lobby_4.png                         # Lobby: layout alternativo
+    │   ├── lobby_5.png                         # Lobby: sezione bonus
+    │   ├── lobby_6.png                         # Lobby: elenco giochi disponibili
+    │   └── lobby_7.JPG                         # Lobby: UX finale completa
+    │
+    ├── others/                                 # Materiale di supporto e overview
+    │   ├── imposed_difficulty_levels.png       # Riepilogo livelli di complessità tecnica raggiunti
+    │   └── index.png                           # Landing page (index.html)
+    │
+    ├── outputs/                                # Output funzionali del sistema
+    │   ├── output_tipico_1.JPG                 # Output tipico: operazioni utente
+    │   ├── output_tipico_2.JPG                 # Output tipico: bonus
+    │   ├── output_tipico_3.JPG                 # Output tipico: transazioni
+    │   ├── output_tipico_4.JPG                 # Output tipico: dashboard admin
+    │   ├── output_tipico_5.JPG                 # Output tipico: gestione errori
+    │   ├── output_tipico_6.JPG                 # Output tipico: sicurezza
+    │   ├── output_tipico_7.JPG                 # Output tipico: logging
+    │   ├── output_tipico_8.JPG                 # Output tipico: flusso completo
+    │   ├── output_tipico.JPG                   # Riepilogo output principali
+    │   └── password_reset.JPG                  # Reset password avviato dal login
+    │
+    └── socials/                                # Branding & identità
+        ├── lucapontellini.jpeg                 # Profilo Instagram personale
+        ├── LucaPontellini.JPG                  # Profilo GitHub scolastico
+        ├── plastici.f3rroviari.jpeg            # Profilo Instagram personale (secondo account)
+        └── plastici.ferroviari.JPG             # Profilo YouTube personale (associato al secondo account Instagram)
 ```
 
 ---
@@ -439,6 +512,24 @@ Pur mantenendo le stesse variabili, questo metodo garantisce:
 - maggiore leggibilità  
 - manutenzione più semplice  
 - struttura più coerente e scalabile  
+
+---
+
+## Guida Operativa del Progetto
+
+Per chi desidera **utilizzare concretamente il progetto**, avviarlo in locale e comprenderne il flusso operativo passo-passo, è disponibile un file dedicato: **[`PROJECT_OPERATION.md`](PROJECT_OPERATION.md)**
+
+Questo documento è concepito come un **tutorial pratico**, e include:
+- istruzioni di setup e avvio dell’applicazione
+- spiegazione dei flussi principali (login, admin, bonus, dashboard, ecc.)
+- esempi di utilizzo delle funzionalità
+- indicazioni per testare e sperimentare il progetto
+
+Il presente file **`PROJECT_GUIDE.md`** ha invece lo scopo di fornire una **visione architetturale e concettuale** del progetto, descrivendone la struttura, le scelte tecniche e la filosofia di sviluppo.
+
+**In sintesi**:
+- **PROJECT_GUIDE.md** → *come è progettato il progetto*
+- **PROJECT_OPERATION.md** → *come usare il progetto*
 
 ---
 

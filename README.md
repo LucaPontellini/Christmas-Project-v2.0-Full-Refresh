@@ -45,7 +45,8 @@ L’obiettivo principale è realizzare una **web application Flask strutturata p
 
 La struttura del progetto segue il modello analizzato in classe ed è organizzata per moduli.
 
-Per una descrizione dettagliata delle cartelle, dei file e delle scelte architetturali, fare riferimento al file: [**PROJECT_GUIDE.md**](PROJECT_GUIDE.md)
+- Per una descrizione dettagliata delle cartelle, dei file e delle scelte architetturali, fare riferimento al file: [**PROJECT_GUIDE.md**](PROJECT_GUIDE.md)
+- Per una descrizione dettagliata sul funzionamento del progetto, fare riferimento al file: [**PROJECT_OPERATION.md**](PROJECT_OPERATION.md)
 
 ---
 

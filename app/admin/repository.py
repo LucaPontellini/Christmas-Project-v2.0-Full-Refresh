@@ -1,7 +1,7 @@
 from datetime import datetime
 from app.database.db import query_one, query_all, execute
 
-# --- STATISTICHE DASHBOARD ---
+# STATISTICHE DASHBOARD
 def get_dashboard_stats():
     # Recupera numero utenti attivi
     users_res = query_one("SELECT COUNT(*) AS total FROM users WHERE is_deleted = 0")
@@ -37,7 +37,7 @@ def get_dashboard_stats():
         "total_bonuses": finance_res["total_bonuses"] or 0
     }
 
-# --- LISTE UTENTI E TRANSAZIONI ---
+# LISTE UTENTI E TRANSAZIONI
 def get_all_users(include_deleted=True):
     sql = "SELECT id, username, balance, is_deleted, created_at, role FROM users"
     if not include_deleted:
@@ -53,7 +53,7 @@ def get_recent_transactions(limit=100):
         LIMIT ?
     """, (limit,))
 
-# --- LOG DI ACCESSO E ADMIN ---
+# LOG DI ACCESSO E ADMIN
 def get_access_logs(limit=100):
     return query_all("""
         SELECT a.user_id, a.action, a.created_at, u.username 
@@ -88,7 +88,7 @@ def get_system_activity(limit=100):
     # Restituiamo solo i primi risultati richiesti
     return tutti_i_logs[:limit]
 
-# --- AZIONI DI GESTIONE ---
+# AZIONI DI GESTIONE
 def log_admin_action(admin_id, target_user_id, action):
     execute("""
         INSERT INTO admin_logs (admin_id, target_user_id, action, created_at)
