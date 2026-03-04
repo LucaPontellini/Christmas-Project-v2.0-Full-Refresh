@@ -11,7 +11,7 @@ def create_app():
     # Configurazione di base della sessione
     app.config["SESSION_PERMANENT"] = False          # La sessione scade alla chiusura del browser
     app.config["SESSION_COOKIE_HTTPONLY"] = True     # Impedisce accesso ai cookie via JavaScript
-    app.secret_key = os.environ.get("SECRET_KEY", "dev-key")  # Chiave per firmare le sessioni
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")  # Chiave per firmare le sessioni
 
     # Registrazione dei blueprint dell'applicazione
     from app.main.routes import main

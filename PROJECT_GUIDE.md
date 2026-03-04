@@ -288,6 +288,7 @@ Christmas-Project-v2.0-Full-Refresh/
 │
 ├── .gitignore                                  # Sicurezza e Pulizia: Esclusione file runtime
 │                                               # - Protegge i dati sensibili (instance/, .env).
+├── .env                                        # Variabili d'ambiente (es. SECRET_KEY, DATABASE_URL) - Escluso da .gitignore per sicurezza
 │                                               # - Esclude file di sistema inutili (__pycache__, .vscode).
 │                                               # - Mantiene il repository leggero e professionale.
 │
