@@ -6,6 +6,14 @@ Repository del progetto originale: https://github.com/LucaPontellini/Christmas-p
 
 ---
 
+## 🌐 Deploy online
+
+Il progetto è attualmente deployato su **Render** ed è accessibile qui: **https://christmas-project-v2-0-full-refresh.onrender.com**
+
+> Nota: sui piani gratuiti Render può impiegare alcuni secondi per riattivarsi se è in stato di "sleep".
+
+---
+
 ## Descrizione del progetto
 
 L’applicazione nasce come una **homepage tematica stile “casino”**, con:
